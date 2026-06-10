@@ -1,1 +1,1 @@
-# Análisis-multidimensional-de-brechas-socioeconómicas-y-dinámicas-en-Chile
+# Análisis multidimensional de brechas socioeconómicas y dinámicas en Chile
