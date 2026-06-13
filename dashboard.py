@@ -557,7 +557,10 @@ with col_main:
 
     # Funciones auxiliares para gráficos
     def brecha(df, col, mapa):
-        occ = df[(df["activ"]==1) & (df[col].isin(mapa))].copy()
+        if "activ" in df.columns:
+            occ = df[(df["activ"]==1) & (df[col].isin(mapa))].copy()
+        else:
+            occ = df[df[col].isin(mapa)].copy()
         occ["grupo"] = occ[col].map(mapa)
         out = {}
         for s, g in occ.groupby("grupo"):
