@@ -1,0 +1,14 @@
+# Ignorar archivos crudos de datos pesados en la raíz
+/casen_2020.parquet
+/casen_2022.parquet
+/casen_2024.parquet
+
+# (Los archivos optimizados dentro de /data/ SÍ se subirán, ya que no están ignorados aquí)
+
+# Cache y entorno virtual
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.env
