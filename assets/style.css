@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+/* ===== Animaciones ===== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Ocultar elementos de Streamlit */
+header[data-testid="stHeader"] { display: none !important; }
+[data-testid="stToolbar"] { display: none !important; }
+footer { display: none !important; }
+
+/* Fondo principal — tono cálido muy sutil para armonizar con Magma */
+.stApp {
+    background-color: #F8F6FB !important;
+    color: #1E293B !important;
+}
+
+/* Reducir padding exterior */
+.block-container {
+    padding-top: 8px !important;
+    padding-right: 32px !important;
+    padding-bottom: 24px !important;
+    padding-left: 32px !important;
+    max-width: 100% !important;
+}
+
+/* Tooltips de Plotly */
+.hoverlayer path.bg {
+    stroke: #1E293B !important;
+    stroke-width: 8px !important;
+    stroke-linejoin: round !important;
+}
+
+/* ===== Sidebar (Magma gradiente sutil) ===== */
+div[data-testid="stColumn"]:has(.sidebar-anchor) {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 100%) !important;
+    border-radius: 20px !important;
+    padding: 24px !important;
+    box-shadow: 0px 4px 24px rgba(45, 27, 105, 0.04),
+                0px 1px 2px rgba(181, 54, 122, 0.03) !important;
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 8px !important;
+    height: calc(100vh - 32px) !important;
+    overflow-y: auto !important;
+    align-self: stretch !important;
+    border: 1px solid rgba(226, 232, 240, 0.5) !important;
+}
+
+/* Scrollbar — tono Magma */
+div[data-testid="stColumn"]:has(.sidebar-anchor)::-webkit-scrollbar {
+    width: 4px;
+}
+div[data-testid="stColumn"]:has(.sidebar-anchor)::-webkit-scrollbar-track {
+    background: transparent;
+}
+div[data-testid="stColumn"]:has(.sidebar-anchor)::-webkit-scrollbar-thumb {
+    background: rgba(181, 54, 122, 0.2);
+    border-radius: 10px;
+}
+div[data-testid="stColumn"]:has(.sidebar-anchor)::-webkit-scrollbar-thumb:hover {
+    background: rgba(181, 54, 122, 0.4);
+}
+
+/* ===== Tarjetas KPI — Borde top Magma ===== */
+.kpi-card {
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    padding: 20px 20px 16px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s cubic-bezier(.4,0,.2,1),
+                box-shadow 0.25s cubic-bezier(.4,0,.2,1);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease both;
+}
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(90deg, #F97316, #B5367A, #2D1B69);
+}
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 12px 32px rgba(45, 27, 105, 0.10),
+                0px 4px 12px rgba(181, 54, 122, 0.06);
+}
+
+/* Delay de animación */
+.kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.kpi-card:nth-child(2) { animation-delay: 0.12s; }
+.kpi-card:nth-child(3) { animation-delay: 0.19s; }
+
+/* Borde top específico por métrica */
+.kpi-ingreso::before { background: linear-gradient(90deg, #4FC3F7, #29B6F6); }
+.kpi-pobreza::before { background: linear-gradient(90deg, #E8537A, #B5367A); }
+.kpi-empleo::before  { background: linear-gradient(90deg, #F97316, #FB923C); }
+
+/* ===== Contenedores de Gráficos ===== */
+div[data-testid="stElementContainer"] > div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: #FFFFFF !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(226, 232, 240, 0.6) !important;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.03) !important;
+    padding: 24px !important;
+    margin-bottom: 24px !important;
+    transition: transform 0.25s cubic-bezier(.4,0,.2,1),
+                box-shadow 0.25s cubic-bezier(.4,0,.2,1) !important;
+    animation: fadeInUp 0.5s ease 0.15s both;
+}
+div[data-testid="stElementContainer"] > div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    box-shadow: 0px 12px 40px rgba(45, 27, 105, 0.07),
+                0px 4px 12px rgba(181, 54, 122, 0.04) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ===== Tipografía ===== */
+h2 {
+    font-size: 28px !important;
+    margin: 0 0 4px !important;
+    color: #111827 !important;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+h6 { font-size: 14px !important; margin: 0 0 24px !important; color: #6B7280 !important; font-weight: 500 !important; }
+h5 { font-size: 18px !important; color: #111827 !important; margin: 0 !important; font-weight: 700 !important; }
+
+/* ===== Botones — Degradado Magma ===== */
+div[data-testid="stButton"] button[kind="primary"],
+[data-testid="baseButton-primary"],
+[data-testid="stBaseButton-primary"] {
+    background: linear-gradient(90deg, #F97316, #B5367A, #2D1B69) !important;
+    color: #FFFFFF !important;
+    border-radius: 50px !important;
+    border: none !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px 0 rgba(45, 27, 105, 0.30) !important;
+    padding: 4px 8px !important;
+    font-size: 13px !important;
+    transition: all 0.2s ease !important;
+}
+div[data-testid="stButton"] button[kind="primary"]:hover,
+[data-testid="baseButton-primary"]:hover,
+[data-testid="stBaseButton-primary"]:hover {
+    background: linear-gradient(90deg, #EA580C, #9E2B6B, #1E1256) !important;
+    box-shadow: 0 6px 20px rgba(45, 27, 105, 0.20) !important;
+    transform: translateY(-1px);
+}
+div[data-testid="stButton"] button[kind="secondary"],
+[data-testid="baseButton-secondary"],
+[data-testid="stBaseButton-secondary"] {
+    background-color: transparent !important;
+    color: #4B5563 !important;
+    border-radius: 50px !important;
+    border: 1px solid #E5E7EB !important;
+    font-weight: 600 !important;
+    padding: 4px 8px !important;
+    font-size: 13px !important;
+    transition: all 0.2s ease !important;
+}
+div[data-testid="stButton"] button[kind="secondary"]:hover,
+[data-testid="baseButton-secondary"]:hover,
+[data-testid="stBaseButton-secondary"]:hover {
+    background-color: #F3F4F6 !important;
+    color: #111827 !important;
+    border-color: rgba(181, 54, 122, 0.3) !important;
+    transform: translateY(-1px);
+}
+
+/* Selectbox — acento Magma al hover */
+div[data-baseweb="select"] > div {
+    border-radius: 50px !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+div[data-baseweb="select"] > div:hover {
+    border-color: rgba(181, 54, 122, 0.35) !important;
+    box-shadow: 0 0 0 2px rgba(181, 54, 122, 0.06) !important;
+}
+
+/* ===== Narrativa — Magma border ===== */
+.narrative-box {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FAF5FF 100%);
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.03);
+    margin-bottom: 24px;
+    animation: fadeInUp 0.5s ease 0.3s both;
+    position: relative;
+}
+.narrative-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 24px; right: 24px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(181, 54, 122, 0.15), transparent);
+}
+
+/* ===== Título con Degradado Magma ===== */
+.gradient-title {
+    background: linear-gradient(135deg, #2D1B69 0%, #6D28A8 30%, #B5367A 65%, #F97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -0.5px;
+    line-height: 1.25;
+}
+
+/* ===== Subtítulo de gráfico ===== */
+.chart-subtitle {
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-top: 2px;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+/* ===== Badge de ámbito — Magma ===== */
+.ambito-badge {
+    display: inline-block;
+    background: rgba(45, 27, 105, 0.06);
+    color: #2D1B69;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 50px;
+    border: 1px solid rgba(45, 27, 105, 0.12);
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* ===== Sparkline container ===== */
+.sparkline-container {
+    margin-top: 8px;
+    border-top: 1px solid rgba(226, 232, 240, 0.5);
+    padding-top: 8px;
+}
+
+/* ===== Contenedores de Gráficos ===== */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: #FFFFFF !important;
+}
