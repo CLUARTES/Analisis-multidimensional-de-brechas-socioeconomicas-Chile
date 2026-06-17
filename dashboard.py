@@ -419,7 +419,7 @@ with col_sidebar:
             
         # Fijar encuadre exacto como en el mapa original
         fig_map.update_geos(visible=False, projection_type="mercator", lonaxis_range=[-77.5, -65.0], lataxis_range=[-56.5, -17.2])
-        fig_map.update_layout(title=dict(text="Distribución del ingreso medio regional", font=dict(size=12, color="#000000"), x=0.5, xref="paper", xanchor="center", y=0.97, yanchor="top"))
+        fig_map.update_layout(title=dict(text="Distribución del ingreso medio regional", font=dict(size=12, color="#000000"), x=0.58, xref="paper", xanchor="center", y=0.97, yanchor="top"))
         fig_map = base_layout(fig_map, h=380) # Altura precisa para encajar estáticamente
         fig_map.update_layout(margin=dict(l=0, r=0, t=30, b=0), dragmode=False)
         
