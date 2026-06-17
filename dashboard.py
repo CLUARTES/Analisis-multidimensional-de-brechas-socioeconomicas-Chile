@@ -21,6 +21,12 @@ import streamlit as st
 # =====================================================================
 # 1. Configuración de Página y CSS
 # =====================================================================
+st.markdown("""
+<style>
+[data-testid="stToolbar"] { display: none !important; }
+</style>
+""", unsafe_allow_html=True)
+
 st.set_page_config(
     page_title="Brechas socioeconómicas — CASEN 2024",
     layout="wide",
@@ -187,10 +193,10 @@ def moran_lisa(vals_dict, n_perm=999, seed=42):
     return I_obs, p_glob, lisa
 
 LISA_COLORS = {
-    "Alto-Alto": ("#FEE2E2", "#EF4444", "Alto-Alto (Hotspot)"),
-    "Bajo-Bajo": ("#DBEAFE", "#3B82F6", "Bajo-Bajo (Coldspot)"),
-    "Bajo-Alto": ("#FDF2F8", "#EC4899", "Bajo-Alto (Outlier)"),
-    "Alto-Bajo": ("#FEF3C7", "#D97706", "Alto-Bajo (Outlier)"),
+    "Alto-Alto": ("#FEE2E2", "#EF4444", "Alto-Alto (Clúster cálido)"),
+    "Bajo-Bajo": ("#DBEAFE", "#3B82F6", "Bajo-Bajo (Clúster frío)"),
+    "Bajo-Alto": ("#FDF2F8", "#EC4899", "Bajo-Alto (Valor atípico)"),
+    "Alto-Bajo": ("#FEF3C7", "#D97706", "Alto-Bajo (Valor atípico)"),
 }
 
 def make_lisa_badges(sig_df):
@@ -421,7 +427,7 @@ with col_sidebar:
         fig_map.update_geos(visible=False, projection_type="mercator", lonaxis_range=[-77.5, -65.0], lataxis_range=[-56.5, -17.2])
         fig_map.update_layout(title=dict(text="Distribución del ingreso medio regional", font=dict(size=12, color="#000000"), x=0.5, y=0.95))
         fig_map = base_layout(fig_map, h=380) # Altura precisa para encajar estáticamente
-        fig_map.update_layout(margin=dict(l=0, r=0, t=0, b=0), dragmode=False)
+        fig_map.update_layout(margin=dict(l=0, r=0, t=28, b=0), dragmode=False)
         
         ev = st.plotly_chart(fig_map, width='stretch', on_select="rerun", selection_mode="points", config={'scrollZoom':False, 'displayModeBar':False})
         if ev and ev.get('selection',{}).get('points'):
@@ -690,7 +696,7 @@ with col_main:
                 hovertemplate=("<b>%{text}</b><br>Pobreza: %{x:.1f}%<br>Ingreso: $%{y:,.0f}K<extra></extra>")
             ))
             fig.update_xaxes(title="Tasa de Pobreza (%)", title_font=dict(size=10, color="#000000"))
-            fig.update_yaxes(title="Ingreso per capita (miles $)", title_font=dict(size=10, color="#000000"))
+            fig.update_yaxes(title="Ingreso per cápita (miles $)", title_font=dict(size=10, color="#000000"))
             st.plotly_chart(base_layout(fig, h=CH_H, l_margin=40), width='stretch', config={'displayModeBar':False})
 
     with r2_c2:
