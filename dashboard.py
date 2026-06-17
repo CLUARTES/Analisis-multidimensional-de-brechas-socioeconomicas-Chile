@@ -677,7 +677,7 @@ with col_main:
             # Zonas de cuadrante sombreadas
             x_med, y_med = x.median(), y.median()
 
-            colores = [C_ACENTO if (filtrado and r == cod_sel) else "#CBD5E1" for r in reg_df["region"]]
+            #colores = [C_ACENTO if (filtrado and r == cod_sel) else "#CBD5E1" for r in reg_df["region"]]
             fig = go.Figure()
             # Cuadrante favorable (bajo pobreza, alto ingreso)
             fig.add_shape(type="rect", x0=x.min()-2, x1=x_med, y0=y_med, y1=y.max()*1.1, fillcolor="rgba(16,185,129,0.04)", line=dict(width=0), layer="below")
@@ -686,7 +686,17 @@ with col_main:
             fig.add_trace(go.Scatter(x=xs, y=b1 * xs + b0, mode="lines", name="Tendencia", line=dict(color=C_MUJER, dash="dash", width=1.5)))
             fig.add_trace(go.Scatter(
                 x=x, y=y, mode="markers+text", text=reg_df["nombre"], textposition="top center", textfont=dict(size=9, color="#6B7280"), name="Regiones",
-                marker=dict(size=np.sqrt(reg_df["poblacion"] / reg_df["poblacion"].max()) * 30 + 6, color=colores, opacity=0.85, line=dict(color="white", width=1.5)),
+                #marker=dict(size=np.sqrt(reg_df["poblacion"] / reg_df["poblacion"].max()) * 30 + 6, color=colores, opacity=0.85, line=dict(color="white", width=1.5)),
+                marker=dict(
+                    size=np.sqrt(reg_df["poblacion"] / reg_df["poblacion"].max()) * 30 + 6,
+                    color=y,
+                    colorscale="Plasma",
+                    opacity=0.85,
+                    line=dict(color="white", width=1.5),
+                    showscale=False,
+                    # Resalta la región seleccionada si hay filtro activo
+                    **({ "cauto": True } if not filtrado else {})
+                ),    
                 hovertemplate=("<b>%{text}</b><br>Pobreza: %{x:.1f}%<br>Ingreso: $%{y:,.0f}K<extra></extra>")
             ))
             fig.update_xaxes(title="Tasa de Pobreza (%)", title_font=dict(size=10, color="#000000"))
