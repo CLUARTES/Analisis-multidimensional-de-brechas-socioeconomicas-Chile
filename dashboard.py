@@ -690,7 +690,7 @@ with col_main:
                 marker=dict(
                     size=np.sqrt(reg_df["poblacion"] / reg_df["poblacion"].max()) * 30 + 6,
                     color=y,
-                    colorscale="Plasma",
+                    colorscale="Magma",
                     opacity=0.85,
                     line=dict(color="white", width=1.5),
                     showscale=False,
