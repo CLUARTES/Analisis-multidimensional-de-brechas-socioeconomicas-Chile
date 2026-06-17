@@ -21,12 +21,6 @@ import streamlit as st
 # =====================================================================
 # 1. Configuración de Página y CSS
 # =====================================================================
-st.markdown("""
-<style>
-[data-testid="stToolbar"] { display: none !important; }
-</style>
-""", unsafe_allow_html=True)
-
 st.set_page_config(
     page_title="Brechas socioeconómicas — CASEN 2024",
     layout="wide",
@@ -427,7 +421,7 @@ with col_sidebar:
         fig_map.update_geos(visible=False, projection_type="mercator", lonaxis_range=[-77.5, -65.0], lataxis_range=[-56.5, -17.2])
         fig_map.update_layout(title=dict(text="Distribución del ingreso medio regional", font=dict(size=12, color="#000000"), x=0.5, y=0.95))
         fig_map = base_layout(fig_map, h=380) # Altura precisa para encajar estáticamente
-        fig_map.update_layout(margin=dict(l=0, r=0, t=28, b=0), dragmode=False)
+        fig_map.update_layout(margin=dict(l=0, r=0, t=0, b=0), dragmode=False)
         
         ev = st.plotly_chart(fig_map, width='stretch', on_select="rerun", selection_mode="points", config={'scrollZoom':False, 'displayModeBar':False})
         if ev and ev.get('selection',{}).get('points'):
