@@ -709,12 +709,32 @@ with col_main:
                     pct_chg = ((v24r - v20r) / v20r) * 100
                     fig.add_annotation(x=2024, y=v24r, text=f"{'↑' if pct_chg >= 0 else '↓'}{abs(pct_chg):.1f}%", showarrow=False, yshift=22, font=dict(size=11, color="#10B981" if pct_chg >= 0 else "#EF4444", weight="bold"))
             else:
-                fig.add_trace(go.Scatter(x=yrs, y=vn, mode="lines+markers+text", name="Nacional", text=[f"${v:,.0f}" for v in vn], textposition="top left", textfont=dict(size=12, weight="bold"), line=dict(color=C_ACENTO, width=4), fill="tozeroy", fillcolor="rgba(249,115,22,0.08)", marker=dict(size=10)))
-                # Anotación de cambio % nacional
-                if vn[0] and vn[0] != 0:
-                    pct_chg_n = ((vn[-1] - vn[0]) / vn[0]) * 100
-                    fig.add_annotation(x=2024, y=vn[-1], text=f"{'↑' if pct_chg_n >= 0 else '↓'}{abs(pct_chg_n):.1f}% desde 2020", showarrow=False, yshift=22, font=dict(size=11, color="#10B981" if pct_chg_n >= 0 else "#EF4444", weight="bold"))
-            
+                fig.add_trace(go.Scatter(
+                    x=yrs, y=vn,
+                    mode="lines+markers+text", name="Nacional",
+                    text=[f"${v:,.0f}" for v in vn],
+                    textposition=["bottom right", "top left", "top right"],
+                    textfont=dict(size=12, weight="bold", color="#111827"),
+                    line=dict(color=C_ACENTO, width=4),
+                    marker=dict(size=10, color=C_ACENTO)
+                ))
+                # Anotaciones de crecimiento por período (igual que el PDF)
+                if vn[0] and vn[1] and vn[0] != 0 and vn[1] != 0:
+                    pct_20_22 = ((vn[1] - vn[0]) / vn[0]) * 100
+                    pct_22_24 = ((vn[2] - vn[1]) / vn[1]) * 100
+                    for x_pos, y_pos, pct in [
+                        (2021, (vn[0]+vn[1])/2, pct_20_22),
+                        (2023, (vn[1]+vn[2])/2, pct_22_24),
+                    ]:
+                        fig.add_annotation(
+                            x=x_pos, y=y_pos,
+                            text=f"+{pct:.1f}%",
+                            showarrow=False,
+                            font=dict(size=11, color="#10B981", weight="bold"),
+                            bgcolor="rgba(209,250,229,0.9)",
+                            bordercolor="#10B981",
+                            borderwidth=1, borderpad=4
+                        )
             fig.update_xaxes(title="Año", tickvals=yrs, title_font=dict(size=10, color="#000000"))
             fig.update_yaxes(title="Ingreso per cápita (miles $)", title_font=dict(size=10, color="#000000"))
             st.plotly_chart(base_layout(fig, h=CH_H, l_margin=40), width='stretch', config={'displayModeBar':False})
